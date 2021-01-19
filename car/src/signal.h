@@ -21,6 +21,7 @@ public:
 
     // Other
     bool hazard;
+    bool beep;
 };
 
 #endif

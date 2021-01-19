@@ -10,7 +10,7 @@ FakeController::FakeController(){};
 void FakeController::setup() {
     #if !VERBOSE
     // Begin serial if haven't already
-    Serial.begin(9600);
+    Serial.begin(SERIAL_BAUD_RATE);
     #endif
 }
 
@@ -44,6 +44,9 @@ void FakeController::update(State& state) {
         break;
     case 'n': // joystick to neutral
         state.userSignal->forwardsMotion = 0;
+        break;
+    case 'B': // toggle BEEP
+        state.userSignal->beep = !state.userSignal->beep;
         break;
     default:
         break;
