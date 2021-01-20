@@ -1,6 +1,8 @@
 #ifndef SIGNAL_H
 #define SIGNAL_H
 
+#include <stdint.h>
+
 typedef enum {
     off,
     left,
@@ -11,8 +13,8 @@ class Signal
 {
 public:
     // Steering controls + throttle
-    int forwardsMotion;
-    int rightMotion;
+    int16_t forwardsMotion;
+    int16_t rightMotion;
 
     // Lights
     bool toggleAutoLights;

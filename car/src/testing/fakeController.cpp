@@ -39,8 +39,11 @@ void FakeController::update(State& state) {
     case 'S': // 'Stop' vehicle
         state.speed = 0;
         break;
+    case 'f': // Push joystick forwards
+        state.userSignal->forwardsMotion = 512;
+        break;
     case 'b': // Pull joystick backwards (brake/reverse)
-        state.userSignal->forwardsMotion = -10;
+        state.userSignal->forwardsMotion = -512;
         break;
     case 'n': // joystick to neutral
         state.userSignal->forwardsMotion = 0;

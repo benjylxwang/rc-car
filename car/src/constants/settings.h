@@ -14,4 +14,11 @@
 // ===== Sensor Settings
 #define AMBIENT_LIGHT_THRESHOLD 700
 
+// ===== Controller Settings
+#define CONTROLLER_RECEIVE_ADDRESS "00007"
+#define CONTROLLER_ANALOG_MAX_VALUE 512
+
+// ===== Motor Settings
+#define MOTOR_MAX_SPEED 255
+
 #endif
