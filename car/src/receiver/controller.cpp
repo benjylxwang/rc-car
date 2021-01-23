@@ -4,22 +4,23 @@
 
 #include "controller.h"
 
-Controller::Controller(byte cePin, byte csPin) : receiver(cePin, csPin)
+Controller::Controller(byte cePin_, byte csPin_)
 {
+    cePin = cePin_;
+    csnPin = csPin_;
 }
 
 void Controller::setup()
 {
-    receiver.begin();
-    receiver.openReadingPipe(0, (uint8_t*) CONTROLLER_RECEIVE_ADDRESS);
-    receiver.startListening();
+    radio.init(RF_CAR_ID, cePin, csnPin);
 }
+
 void Controller::update(State &state)
 {
-    if (receiver.available())
+    if (radio.hasData())
     {
         char data[32] = {0};
-        receiver.read(&data, sizeof(data));
+        radio.readData(&data);
 
         // Wipe previous usersignal
         if (state.userSignal)
@@ -50,5 +51,23 @@ void Controller::update(State &state)
         // Beeper
         b++;
         state.userSignal->beep = *b;
+
+        #if VERBOSE
+        Serial.print("Motion: (");
+        Serial.print(state.userSignal->forwardsMotion);
+        Serial.print(", ");
+        Serial.print(state.userSignal->rightMotion);
+        Serial.print(") Indicator: ");
+        Serial.print(state.userSignal->indicator);
+        Serial.print(" Auto Lights: ");
+        Serial.print(state.userSignal->toggleAutoLights);
+        Serial.print(" Headlights: ");
+        Serial.print(state.userSignal->headlightsOn);
+        Serial.print(" Hazard: ");
+        Serial.print(state.userSignal->hazard);
+        Serial.print(" Beep: ");
+        Serial.print(state.userSignal->beep);
+        Serial.println();
+        #endif
     }
 }

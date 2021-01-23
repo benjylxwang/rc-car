@@ -3,7 +3,7 @@
 
 #include "../state.h"
 #include "../../constants.h"
-#include <RF24.h>
+#include <NRFLite.h>
 
 class Controller
 {
@@ -14,7 +14,12 @@ public:
     void update(State& state);
 
 private:
-    RF24 receiver;
+    NRFLite radio;
+
+    // Pins
+    byte cePin;
+    byte csnPin;
+
 };
 
 #endif

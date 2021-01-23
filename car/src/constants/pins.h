@@ -35,8 +35,8 @@
 
 // MOSI pins for receiver (These are fixed for different arduino types)
 #define RF_SCK_PIN 13
-#define RF_MOSI_PIN 12
-#define RF_MISO PIN 11
+#define RF_MISO PIN 12
+#define RF_MOSI_PIN 11
 
 
 #endif
