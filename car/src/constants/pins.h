@@ -33,13 +33,13 @@
 #define SPEEDOMETER_CLOCK A3
 
 // == RF Receiver
-#define RF_CE_PIN 9
-#define RF_CSN_PIN 10
+#define RF_CE_PIN 49
+#define RF_CSN_PIN 53
 
-// MOSI pins for receiver (These are fixed for different arduino types)
-#define RF_SCK_PIN 13
-#define RF_MISO PIN 12
-#define RF_MOSI_PIN 11
+// MOSI pins for receiver (These are fixed for different arduino types: we are using an Arduino Mega2560)
+#define RF_SCK_PIN 52
+#define RF_MISO PIN 50
+#define RF_MOSI_PIN 51
 
 
 #endif
