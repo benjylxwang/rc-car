@@ -9,6 +9,7 @@
 #include "src/hardware/beep.h"
 #include "src/hardware/speedometer.h"
 #include "src/hardware/motor.h"
+#include "src/hardware/steering.h"
 
 // Global state
 State gState;
@@ -18,6 +19,7 @@ Lights lights(LIGHTS_HEADLIGHTS_PIN, LIGHTS_BRAKELIGHTS_PIN, LIGHTS_INDICATOR_LE
 Beep beep(BEEP_PIN);
 Speedometer speedometer(SPEEDOMETER_DIGIT_1, SPEEDOMETER_DIGIT_2, SPEEDOMETER_DIGIT_3, SPEEDOMETER_DIGIT_4, SPEEDOMETER_LATCH, SPEEDOMETER_CLOCK, SPEEDOMETER_DATA);
 Motor motor(MOTOR_ENABLE_PIN, MOTOR_IN_A, MOTOR_IN_B);
+Steering steering(STEERING_PIN);
 
 // Sensors
 Sensors sensors(PHOTORESISTOR_PIN);
@@ -44,6 +46,7 @@ void setup() {
     beep.setup();
     // speedometer.setup();
     motor.setup();
+    steering.setup();
 
     controller.setup();
 }
@@ -60,4 +63,5 @@ void loop() {
     beep.update(gState);
     // speedometer.update(gState);
     motor.update(gState);
+    steering.update(gState);
 }
