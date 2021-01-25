@@ -10,7 +10,7 @@ public:
     Lights(byte headlightsPin, byte brakelightsPin, byte indicatorLeftPin, byte indicatorRightPin);
 
     void setup();
-    void update(State state);
+    void update(State& state);
 
 private:
     // pins
@@ -19,17 +19,13 @@ private:
     byte indicatorLeft;
     byte indicatorRight;
 
-    // state
-    bool isAutomatic;
-    bool isLightOn;
-
     // Indicators state
     bool indicatorLightState;
     unsigned long startTime;
 
     // helpers
-    void lightsOn();
-    void lightsOff();
+    void lightsOn(State& state);
+    void lightsOff(State& state);
 
     void flashIndicator(byte pin);
 };

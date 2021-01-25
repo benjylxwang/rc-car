@@ -10,7 +10,7 @@ public:
     Beep(byte buzzerPin);
 
     void setup();
-    void update(State state);
+    void update(State& state);
 
 private:
     byte buzzer;

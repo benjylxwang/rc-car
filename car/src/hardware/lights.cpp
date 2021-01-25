@@ -7,9 +7,6 @@ Lights::Lights(byte headlightsPin_, byte brakelightsPin_, byte indicatorLeftPin_
     brakelights = brakelightsPin_;
     indicatorLeft = indicatorLeftPin_;
     indicatorRight = indicatorRightPin_;
-
-    // Default to automatic lights
-    isAutomatic = true;
 }
 
 void Lights::setup()
@@ -20,28 +17,37 @@ void Lights::setup()
     pinMode(indicatorRight, OUTPUT);
 }
 
-void Lights::update(State state)
+void Lights::update(State& state)
 {
     // First check if we need to change automatic
     if (state.userSignal && state.userSignal->toggleAutoLights)
     {
-        isAutomatic = !isAutomatic;
+        state.isLightAutomatic = !state.isLightAutomatic;
     }
 
     // Headlights
-    if (isAutomatic)
+    if (state.isLightAutomatic)
     {
         if (state.inDarkness)
-            lightsOn();
+            lightsOn(state);
         else
-            lightsOff();
+            lightsOff(state);
     }
     else
     {
         if (state.userSignal && state.userSignal->headlightsOn)
-            lightsOn();
+        {
+            lightsOn(state);
+        }
+        else if (!state.userSignal && state.isHeadlightsOn)
+        {
+            // No user signal, so keep on if it was on
+            lightsOn(state);
+        }
         else
-            lightsOff();
+        {
+            lightsOff(state);
+        }
     }
 
     // Brake lights brighter/dimmer
@@ -52,7 +58,7 @@ void Lights::update(State state)
     }
     else
     {
-        analogWrite(brakelights, isLightOn ? LIGHTS_DIM_LEVEL : LIGHTS_OFF);
+        analogWrite(brakelights, state.isHeadlightsOn ? LIGHTS_DIM_LEVEL : LIGHTS_OFF);
     }
 
     // Hazard lights
@@ -61,16 +67,22 @@ void Lights::update(State state)
         // Flash both indicators
         flashIndicator(indicatorLeft);
         flashIndicator(indicatorRight);
+        state.isHazardsOn = true;
     }
     else
     {
+        state.isHazardsOn = false;
+        if (state.userSignal) {
+            state.indicators = state.userSignal->indicator;
+        }
+
         // Turn indicators on/off
-        if (state.userSignal && state.userSignal->indicator == left)
+        if (state.indicators == left)
         {
             flashIndicator(indicatorLeft);
             digitalWrite(indicatorRight, LIGHTS_OFF);
         }
-        else if (state.userSignal && state.userSignal->indicator == right)
+        else if (state.indicators == right)
         {
             flashIndicator(indicatorRight);
             digitalWrite(indicatorLeft, LIGHTS_OFF);
@@ -84,15 +96,15 @@ void Lights::update(State state)
     }
 }
 
-void Lights::lightsOn()
+void Lights::lightsOn(State& state)
 {
-    isLightOn = true;
+    state.isHeadlightsOn = true;
     digitalWrite(headlights, HIGH);
 }
 
-void Lights::lightsOff()
+void Lights::lightsOff(State& state)
 {
-    isLightOn = false;
+    state.isHeadlightsOn = false;
     digitalWrite(headlights, LIGHTS_OFF);
 }
 

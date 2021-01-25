@@ -13,11 +13,21 @@ void Beep::setup()
     pinMode(buzzer, OUTPUT);
 }
 
-void Beep::update(State state)
-{   
-    if (state.userSignal && state.userSignal->beep) {
+void Beep::update(State& state)
+{
+    if (state.userSignal && state.userSignal->beep)
+    {
         // Output tone
         tone(buzzer, BUZZER_FREQUENCY);
+        state.isHornOn = true;
     }
-    else noTone(buzzer);
+    else if (!state.userSignal && state.isHornOn)
+    {
+        tone(buzzer, BUZZER_FREQUENCY);
+    }
+    else
+    {
+        noTone(buzzer);
+        state.isHornOn = false;
+    }
 }

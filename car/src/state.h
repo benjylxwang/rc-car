@@ -7,14 +7,41 @@
 class State {
 public:
     State() {
-        // Zero everything
+        // Default starting state
         inDarkness = false;
-        userSignal = NULL;
+        userSignal = nullptr;
+
+        speed = 0;
+        turningAngle = 0;
+
+        temperature = 0;
+        humidity = 0;
+
+        isLightAutomatic = true;
+        isHeadlightsOn = false;
+        isHazardsOn = false;
+        indicators = off;
+
+        isHornOn = false;
     }
 
     // Sensor results
-    bool inDarkness;
     float speed;
+    float turningAngle;
+
+    // Environment
+    bool inDarkness;
+    float temperature;
+    float humidity;
+
+    // Light states
+    bool isLightAutomatic;
+    bool isHeadlightsOn;
+    bool isHazardsOn;
+    direction indicators;
+
+    // Horn
+    bool isHornOn;
 
     // Signal from user controller
     Signal* userSignal;

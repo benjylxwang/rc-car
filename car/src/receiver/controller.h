@@ -20,6 +20,9 @@ private:
     byte cePin;
     byte csnPin;
 
+    void parseData(State& state);
+    void prepareAck(State& state);
+
 };
 
 #endif

@@ -16,9 +16,9 @@ JoystickAxis throttle(THROTTLE_PIN);
 JoystickAxis turning(TURNING_PIN);
 
 // Lights
-ToggleButton automaticLights(TOGGLE_AUTO_LIGHTS);
-ToggleButton manualHeadlights(TOGGLE_HEADLIGHTS);
-ToggleButton hazardLights(TOGGLE_HAZARD_LIGHTS);
+ToggleButton automaticLights(TOGGLE_AUTO_LIGHTS, INPUT_PULLUP, true);
+ToggleButton manualHeadlights(TOGGLE_HEADLIGHTS, INPUT_PULLUP, true, true);
+ToggleButton hazardLights(TOGGLE_HAZARD_LIGHTS, INPUT_PULLUP, true, true);
 
 // Other
 ButtonInput beep(BEEP_PIN, INPUT_PULLUP, true);
