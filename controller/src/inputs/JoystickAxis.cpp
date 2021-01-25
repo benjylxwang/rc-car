@@ -14,5 +14,5 @@ void JoystickAxis::setup()
 
 int16_t JoystickAxis::get()
 {
-    return map(analogRead(pin), 0, 1024, -512, 512);
+    return map(analogRead(pin), 0, 1023, -512, 511);
 }
