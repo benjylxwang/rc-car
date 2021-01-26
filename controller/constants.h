@@ -1,6 +1,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+#define VERBOSE 0
+
 // ===== PINS =====
 // RF Sender
 #define RF_CE_PIN 9

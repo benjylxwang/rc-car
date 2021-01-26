@@ -15,10 +15,10 @@ void Sender::setup()
     radio.init(RF_CONTROLLER_ID, cePin, csnPin);
 }
 
-void Sender::send(Input& input)
+void Sender::send(Input& input, State& carState)
 {
     // Format input object as protocol payload and send
-    char data[10] = {0};
+    char data[32] = {0};
 
     // Throttle and turning (int16_t)
     int16_t* i16 = (int16_t*) &data[0];
@@ -42,4 +42,37 @@ void Sender::send(Input& input)
 
     // Send payload
     radio.send(RF_CAR_ID, &data, sizeof(data));
+
+    // Check for sensor data in ack
+    if (radio.hasAckData()) {
+        char ackData[32] = {0};
+        // Get sensor data from ack
+        radio.readData(&ackData);
+        Serial.println("Received ack data!");
+
+        // Parse data into sensor state object
+        // Speed and turning angle
+        float* f = (float*) &ackData[0];
+        carState.speed = *f++;
+        carState.turningAngle = *f++;
+
+        // Indicators
+        int8_t* i8 = (int8_t*) &ackData[8];
+        carState.indicators = *i8;
+
+        // Lights
+        bool* b = (bool*) &ackData[9];
+        carState.isLightAutomatic = *b++;
+        carState.isHeadlightsOn = *b++;
+        carState.isHazardsOn = *b++;
+
+        // Temp and Humidity
+        f = (float*) &ackData[12];
+        carState.temperature = *f++;
+        carState.humidity = *f++;
+
+        // Horn
+        b = (bool*) &ackData[20];
+        carState.isHornOn = *b;
+    }
 }

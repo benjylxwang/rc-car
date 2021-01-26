@@ -3,6 +3,7 @@
 #include "src/sender.h"
 #include "src/input.h"
 #include "constants.h"
+#include "src/state.h"
 
 #include "src/inputs/JoystickAxis.h"
 #include "src/inputs/ButtonInput.h"
@@ -10,6 +11,7 @@
 
 // RF Sender
 Sender sender(RF_CE_PIN, RF_CSN_PIN);
+State carState;
 
 // Movement Inputs
 JoystickAxis throttle(THROTTLE_PIN);
@@ -23,7 +25,12 @@ ToggleButton hazardLights(TOGGLE_HAZARD_LIGHTS, INPUT_PULLUP, true, true);
 // Other
 ButtonInput beep(BEEP_PIN, INPUT_PULLUP, true);
 
-void setup() {
+void setup()
+{
+#if VERBOSE
+    Serial.begin(115200);
+#endif
+
     sender.setup();
 
     // Inputs
@@ -39,7 +46,8 @@ void setup() {
     Serial.begin(115200);
 }
 
-void loop() {
+void loop()
+{
     Input input;
     // Gather input data
     input.throttle = throttle.get();
@@ -50,19 +58,28 @@ void loop() {
     input.toggleHeadlights = manualHeadlights.get();
     input.toggleHazardlights = hazardLights.get();
 
-
     input.beepHorn = beep.get();
 
-
-    Serial.print("Throttle: ");
-    Serial.println(input.throttle);
-    Serial.print("Turning: ");
-    Serial.println(input.turning);
-    Serial.print("Beep: ");
-    Serial.println(input.beepHorn);
-
     // Send final input
-    sender.send(input);
+    sender.send(input, carState);
+
+#if VERBOSE
+    Serial.print("Motion: (");
+    Serial.print(carState.speed);
+    Serial.print(", ");
+    Serial.print(carState.turningAngle);
+    Serial.print(") Indicator: ");
+    Serial.print(carState.indicators);
+    Serial.print(" Auto Lights: ");
+    Serial.print(carState.isLightAutomatic);
+    Serial.print(" Headlights: ");
+    Serial.print(carState.isHeadlightsOn);
+    Serial.print(" Hazard: ");
+    Serial.print(carState.isHazardsOn);
+    Serial.print(" Beep: ");
+    Serial.print(carState.isHornOn);
+    Serial.println();
+#endif
 
     // Pause so we only send input every so often
     delay(5);

@@ -20,7 +20,7 @@ void Controller::update(State &state)
 
     // Prepare ack - will be sent back if radio data is received
     prepareAck(state);
-
+    
     // If we have data, fill, otherwise, set state usersignal to null
     if (radio.hasData())
     {
@@ -93,11 +93,11 @@ void Controller::prepareAck(State& state) {
     *f = state.turningAngle;
 
     // Indicators
-    int8_t *indicators = (int8_t *)&data[4];
+    int8_t *indicators = (int8_t *)&data[8];
     *indicators = state.indicators;
 
     // Light data
-    byte* b = (byte*) &data[8];
+    byte* b = (byte*) &data[9];
     *b = state.isLightAutomatic;
     b++;
     *b = state.isHeadlightsOn;
@@ -115,5 +115,5 @@ void Controller::prepareAck(State& state) {
     *b = state.isHornOn;
 
     // Add new ack data to pipeline and remove any old data in the pipeline
-    radio.addAckData(data, 32, true);
+    radio.addAckData(data, 32, false);
 }
