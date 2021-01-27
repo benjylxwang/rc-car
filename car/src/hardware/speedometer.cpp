@@ -26,12 +26,19 @@ void Speedometer::update(State state)
 {
     int speed = (int)state.speed;
 
-    for (int i = 3; i >= 0; i--)
+    // First put decimal in
+    byte decimal = (int)(state.speed * 10) % 10;
+    choosePin(3);
+    writeData(digitToHex(decimal));
+    delay(1);
+    writeData(0xff);
+
+    for (int i = 2; i >= 0; i--)
     {
         choosePin(i);
         byte digit;
 
-        if (speed > 0 || i == 3)
+        if (speed > 0 || i == 2)
         {
             digit = speed % 10;
             speed = speed / 10;
@@ -41,11 +48,13 @@ void Speedometer::update(State state)
             digit = 'x';
         }
 
-        writeData(digitToHex(digit));
+        if (i == 2) writeData(digitToHex(digit, true));
+        else writeData(digitToHex(digit));
 
         // LED needs to light up
         if (digit != 'x') {
             // Clear
+            delay(1);
             writeData(0xff);
         }
     }
@@ -71,31 +80,46 @@ void Speedometer::writeData(int value)
     digitalWrite(latch, HIGH);
 }
 
-int Speedometer::digitToHex(byte digit)
+int Speedometer::digitToHex(byte digit, bool dp = false)
 {
+    int result;
     switch (digit)
     {
     case 0:
-        return 0xc0;
+        result = 0xc0;
+        break;
     case 1:
-        return 0xf9;
+        result = 0xf9;
+        break;
     case 2:
-        return 0xa4;
+        result = 0xa4;
+        break;
     case 3:
-        return 0xb0;
+        result = 0xb0;
+        break;
     case 4:
-        return 0x99;
+        result = 0x99;
+        break;
     case 5:
-        return 0x92;
+        result = 0x92;
+        break;
     case 6:
-        return 0x82;
+        result = 0x82;
+        break;
     case 7:
-        return 0xf8;
+        result = 0xf8;
+        break;
     case 8:
-        return 0x80;
+        result = 0x80;
+        break;
     case 9:
-        return 0x90;
+        result = 0x90;
+        break;
     default:
-        return 0xff;
+        result = 0xff;
+        break;
     }
+
+    if (dp) return result & 0x7f;
+    else return result;
 }

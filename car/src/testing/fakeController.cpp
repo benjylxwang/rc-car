@@ -34,7 +34,7 @@ void FakeController::update(State& state) {
         state.userSignal->hazard = !state.userSignal->hazard;
         break;
     case 's': // Put a fake speed value in
-        state.speed = 100;
+        state.speed = 75.23;
         break;
     case 'S': // 'Stop' vehicle
         state.speed = 0;

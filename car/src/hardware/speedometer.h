@@ -20,7 +20,7 @@ private:
 
     void choosePin(byte pin);
     void writeData(int value);
-    int digitToHex(byte digit);
+    int digitToHex(byte digit, bool dp = false);
 };
 
 #endif
