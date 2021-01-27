@@ -8,6 +8,7 @@
 #include "src/inputs/JoystickAxis.h"
 #include "src/inputs/ButtonInput.h"
 #include "src/inputs/ToggleButton.h"
+#include "src/inputs/IndicatorControl.h"
 
 // RF Sender
 Sender sender(RF_CE_PIN, RF_CSN_PIN);
@@ -21,6 +22,7 @@ JoystickAxis turning(TURNING_PIN);
 ToggleButton automaticLights(TOGGLE_AUTO_LIGHTS, INPUT_PULLUP, true);
 ToggleButton manualHeadlights(TOGGLE_HEADLIGHTS, INPUT_PULLUP, true, true);
 ToggleButton hazardLights(TOGGLE_HAZARD_LIGHTS, INPUT_PULLUP, true, true);
+IndicatorControl indicators(INDICATOR_LEFT, INDICATOR_RIGHT, INPUT_PULLUP);
 
 // Other
 ButtonInput beep(BEEP_PIN, INPUT_PULLUP, true);
@@ -40,6 +42,7 @@ void setup()
     automaticLights.setup();
     manualHeadlights.setup();
     hazardLights.setup();
+    indicators.setup();
 
     beep.setup();
 
@@ -57,6 +60,7 @@ void loop()
     input.toggleAutoHeadlights = automaticLights.get();
     input.toggleHeadlights = manualHeadlights.get();
     input.toggleHazardlights = hazardLights.get();
+    input.indication = indicators.get();
 
     input.beepHorn = beep.get();
 

@@ -16,6 +16,8 @@
 #define TOGGLE_HEADLIGHTS 7
 #define TOGGLE_AUTO_LIGHTS 6
 #define TOGGLE_HAZARD_LIGHTS 5
+#define INDICATOR_LEFT 3
+#define INDICATOR_RIGHT 4
 
 
 // = Other controls
