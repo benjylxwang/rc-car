@@ -44,7 +44,7 @@ void setup() {
     // Hardware
     lights.setup();
     beep.setup();
-    // speedometer.setup();
+    speedometer.setup();
     motor.setup();
     steering.setup();
 
@@ -61,7 +61,7 @@ void loop() {
     // Then reflect changes in state in hardware
     lights.update(gState);
     beep.update(gState);
-    // speedometer.update(gState);
+    speedometer.update(gState);
     motor.update(gState);
     steering.update(gState);
 }

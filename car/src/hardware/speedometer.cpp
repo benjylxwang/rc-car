@@ -45,7 +45,6 @@ void Speedometer::update(State state)
 
         // LED needs to light up
         if (digit != 'x') {
-            delay(5);
             // Clear
             writeData(0xff);
         }
@@ -59,7 +58,7 @@ void Speedometer::choosePin(byte pos)
         digitalWrite(digits[i], LOW);
     }
 
-    digitalWrite(pos, HIGH);
+    digitalWrite(digits[pos], HIGH);
 }
 
 void Speedometer::writeData(int value)
