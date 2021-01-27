@@ -12,6 +12,7 @@ public:
     void update(State& state);
 private:
     byte photoResistorPin;
+    unsigned long darknessBeginning;
 };
 
 #endif

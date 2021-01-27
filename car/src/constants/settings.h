@@ -13,6 +13,7 @@
 
 // ===== Sensor Settings
 #define AMBIENT_LIGHT_THRESHOLD 700
+#define IN_DARKNESS_MINIMUM_TIME 2000
 
 // ===== Controller Settings
 #define RF_CONTROLLER_ID 0
