@@ -28,17 +28,16 @@ Sensors sensors(PHOTORESISTOR_PIN);
 #if USE_FAKE_CONTROLLER
 #include "src/testing/fakeController.h"
 FakeController controller;
-#else 
+#else
 #include "src/receiver/controller.h"
 Controller controller(RF_CE_PIN, RF_CSN_PIN);
 #endif
 
-
-
-void setup() {
-    #if VERBOSE
+void setup()
+{
+#if VERBOSE
     Serial.begin(SERIAL_BAUD_RATE);
-    #endif
+#endif
     sensors.setup();
 
     // Hardware
@@ -51,7 +50,8 @@ void setup() {
     controller.setup();
 }
 
-void loop() {
+void loop()
+{
     // Read sensors first to get correct state object
     sensors.update(gState);
 

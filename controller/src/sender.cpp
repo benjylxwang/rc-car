@@ -48,16 +48,16 @@ void Sender::send(Input& input, State& carState)
         char ackData[32] = {0};
         // Get sensor data from ack
         radio.readData(&ackData);
-        Serial.println("Received ack data!");
 
         // Parse data into sensor state object
         // Speed and turning angle
         float* f = (float*) &ackData[0];
         carState.speed = *f++;
-        carState.turningAngle = *f++;
+        int8_t* i8 = (int8_t*) &ackData[4];
+        carState.turningAngle = *i8;
 
         // Indicators
-        int8_t* i8 = (int8_t*) &ackData[8];
+        i8 = (int8_t*) &ackData[8];
         carState.indicators = *i8;
 
         // Lights

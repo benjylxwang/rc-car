@@ -10,6 +10,8 @@
 #include "src/inputs/ToggleButton.h"
 #include "src/inputs/IndicatorControl.h"
 
+#include "src/outputs/display.h"
+
 // RF Sender
 Sender sender(RF_CE_PIN, RF_CSN_PIN);
 State carState;
@@ -26,6 +28,9 @@ IndicatorControl indicators(INDICATOR_LEFT, INDICATOR_RIGHT, INPUT_PULLUP);
 
 // Other
 ButtonInput beep(BEEP_PIN, INPUT_PULLUP, true);
+
+// Outputs
+Display display;
 
 void setup()
 {
@@ -46,7 +51,7 @@ void setup()
 
     beep.setup();
 
-    Serial.begin(115200);
+    display.setup();
 }
 
 void loop()
@@ -66,6 +71,8 @@ void loop()
 
     // Send final input
     sender.send(input, carState);
+
+    display.printState(carState);
 
 #if VERBOSE
     Serial.print("Motion: (");

@@ -96,11 +96,12 @@ The following is a list of all the sensor and state data that will be sent back 
         </tr>
         <tr>
             <td>4</td>
-            <td rowspan=4>Turning Angle</td>
-            <td rowspan=4>float</td>
+            <td rowspan=1>Turning Angle</td>
+            <td rowspan=1>int16</td>
         </tr>
         <tr>
             <td>5</td>
+            <td rowspan=3><i>Unused</i></td>
         </tr>
         <tr>
             <td>6</td>

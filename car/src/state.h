@@ -27,7 +27,7 @@ public:
 
     // Sensor results
     float speed;
-    float turningAngle;
+    int8_t turningAngle;
 
     // Environment
     bool inDarkness;

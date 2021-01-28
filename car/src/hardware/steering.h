@@ -10,7 +10,7 @@ class Steering
 public:
     Steering(byte pin);
     void setup();
-    void update(State state);
+    void update(State& state);
 
 private:
     byte pin;

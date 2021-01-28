@@ -89,12 +89,12 @@ void Controller::prepareAck(State& state) {
     // Speed and turning angle
     float* f = (float*) &data[0];
     *f = state.speed;
-    f++;
-    *f = state.turningAngle;
+    int8_t *i8 = (int8_t *)&data[4];
+    *i8 = state.turningAngle;
 
     // Indicators
-    int8_t *indicators = (int8_t *)&data[8];
-    *indicators = state.indicators;
+    i8 = (int8_t *) &data[8];
+    *i8 = state.indicators;
 
     // Light data
     byte* b = (byte*) &data[9];
@@ -115,5 +115,5 @@ void Controller::prepareAck(State& state) {
     *b = state.isHornOn;
 
     // Add new ack data to pipeline and remove any old data in the pipeline
-    radio.addAckData(data, 32, false);
+    radio.addAckData(data, 32, true);
 }

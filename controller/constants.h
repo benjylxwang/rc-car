@@ -9,8 +9,8 @@
 #define RF_CSN_PIN 10
 
 // = movement pins
-#define THROTTLE_PIN A4
-#define TURNING_PIN A5
+#define THROTTLE_PIN A1
+#define TURNING_PIN A2
 
 // = Light controls
 #define TOGGLE_HEADLIGHTS 7
@@ -31,5 +31,7 @@
 // ==== RF Sender Settings
 #define RF_CONTROLLER_ID 0
 #define RF_CAR_ID 1
+
+#define DISPLAY_UPDATE_RATE 1000
 
 #endif

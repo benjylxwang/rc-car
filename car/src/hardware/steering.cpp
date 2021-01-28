@@ -11,7 +11,7 @@ void Steering::setup()
     servo.attach(pin);
 }
 
-void Steering::update(State state)
+void Steering::update(State& state)
 {
     if (state.userSignal)
     {
