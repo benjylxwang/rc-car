@@ -17,12 +17,18 @@ void Display::printState(State state)
 {
     if (millis() - lastPrint > DISPLAY_UPDATE_RATE)
     {
-        lcd.clear();
         lastPrint = millis();
-        lcd.setCursor(0, 0);
+
         // Temperature first
-        lcd.print(state.temperature);
+        lcd.setCursor(0, 0);
+        if (state.temperature < 10)
+            lcd.print("0");
+        lcd.print(state.temperature, 1);
+        lcd.print((char)0xDF);
         lcd.print("C");
+
+        // Gap
+        lcd.print("      ");
 
         // Then light information
         printLightInfo(state);
@@ -31,36 +37,82 @@ void Display::printState(State state)
         lcd.setCursor(0, 1);
 
         // Left indicator
-        if (state.indicators < 0)
+        if ((state.indicators < 0 || state.isHazardsOn) && !leftIndicator)
         {
-            lcd.print("<");
+            leftIndicator = true;
+            isInFlash = true;
+            lastFlash = millis();
         }
+        else if (state.indicators < 0 || state.isHazardsOn)
+        {
+            leftIndicator = true;
+        }
+        else
+        {
+            leftIndicator = false;
+        }
+        if (isInFlash && leftIndicator)
+            lcd.print((char)0x7F);
+        else
+            lcd.print(" ");
+
+        // Gap
+        lcd.print("  ");
 
         // Speed
         lcd.setCursor(3, 1);
-        lcd.print(state.speed);
-        lcd.print(" km/hr");
+        if (state.speed < 10)
+            lcd.print("0");
+        lcd.print(state.speed, 1);
 
+        lcd.print(" km/hr  ");
         // Right indicator
         lcd.setCursor(15, 1);
-        if (state.indicators > 0)
+        if ((state.indicators > 0 || state.isHazardsOn) && !rightIndicator)
         {
-            lcd.print(">");
+            rightIndicator = true;
+            isInFlash = true;
+            lastFlash = millis();
         }
+        else if (state.indicators > 0 || state.isHazardsOn)
+        {
+            rightIndicator = true;
+        }
+        else
+        {
+            rightIndicator = false;
+        }
+        if (isInFlash && rightIndicator)
+            lcd.print((char)0x7E);
+        else
+            lcd.print(" ");
+    }
+
+    if (millis() - lastFlash > DISPLAY_INDICATOR_FLASH_RATE)
+    {
+        isInFlash = !isInFlash;
+        lastFlash = millis();
     }
 }
 
 void Display::printLightInfo(State state)
 {
-    lcd.setCursor(13, 0);
-    if (state.isHeadlightsOn)
-        lcd.print("H");
-
-    lcd.setCursor(14, 0);
+    lcd.setCursor(12, 0);
     if (state.isLightAutomatic)
         lcd.print("A");
+    else
+        lcd.print(" ");
 
-    lcd.setCursor(15, 0);
-    if (state.isHazardsOn)
-        lcd.print("0x9650");
+    lcd.print(" ");
+
+    lcd.setCursor(14, 0);
+    if (state.isHeadlightsOn)
+    {
+        lcd.print((char)0x0D);
+        lcd.print("D");
+    }
+    else
+    {
+        lcd.print("  ");
+    }
 }

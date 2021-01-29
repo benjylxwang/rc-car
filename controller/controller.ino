@@ -72,8 +72,6 @@ void loop()
     // Send final input
     sender.send(input, carState);
 
-    display.printState(carState);
-
 #if VERBOSE
     Serial.print("Motion: (");
     Serial.print(carState.speed);
@@ -89,9 +87,14 @@ void loop()
     Serial.print(carState.isHazardsOn);
     Serial.print(" Beep: ");
     Serial.print(carState.isHornOn);
+    Serial.print(" T: ");
+    Serial.print(carState.temperature);
+    Serial.print(" H: ");
+    Serial.print(carState.humidity);
     Serial.println();
 #endif
 
     // Pause so we only send input every so often
+    display.printState(carState);
     delay(5);
 }

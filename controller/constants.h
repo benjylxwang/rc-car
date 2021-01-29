@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#define VERBOSE 0
+#define VERBOSE 1
 
 // ===== PINS =====
 // RF Sender
@@ -32,6 +32,7 @@
 #define RF_CONTROLLER_ID 0
 #define RF_CAR_ID 1
 
-#define DISPLAY_UPDATE_RATE 1000
+#define DISPLAY_UPDATE_RATE 10
+#define DISPLAY_INDICATOR_FLASH_RATE 1000
 
 #endif

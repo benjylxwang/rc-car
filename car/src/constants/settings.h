@@ -14,6 +14,7 @@
 // ===== Sensor Settings
 #define AMBIENT_LIGHT_THRESHOLD 700
 #define IN_DARKNESS_MINIMUM_TIME 2000
+#define TEMPERATURE_SENSOR_POLLING_RATE 10000
 
 // ===== Controller Settings
 #define RF_CONTROLLER_ID 0

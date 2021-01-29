@@ -13,6 +13,8 @@
 
 // == Sensors
 #define PHOTORESISTOR_PIN A0
+#define DHT_PIN 40
+#define THERMISTOR_PIN A1
 
 // == Motors - Throttle
 #define MOTOR_ENABLE_PIN 3

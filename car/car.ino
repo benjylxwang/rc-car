@@ -22,7 +22,7 @@ Motor motor(MOTOR_ENABLE_PIN, MOTOR_IN_A, MOTOR_IN_B);
 Steering steering(STEERING_PIN);
 
 // Sensors
-Sensors sensors(PHOTORESISTOR_PIN);
+Sensors sensors(PHOTORESISTOR_PIN, DHT_PIN, THERMISTOR_PIN);
 
 // Controls
 #if USE_FAKE_CONTROLLER
@@ -38,6 +38,7 @@ void setup()
 #if VERBOSE
     Serial.begin(SERIAL_BAUD_RATE);
 #endif
+    Serial.begin(SERIAL_BAUD_RATE);
     sensors.setup();
 
     // Hardware

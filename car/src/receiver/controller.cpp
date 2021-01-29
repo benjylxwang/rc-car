@@ -78,6 +78,10 @@ void Controller::parseData(State &state)
     Serial.print(state.userSignal->hazard);
     Serial.print(" Beep: ");
     Serial.print(state.userSignal->beep);
+    Serial.print(" T: ");
+    Serial.print(state.temperature);
+    Serial.print(" H: ");
+    Serial.print(state.humidity);
     Serial.println();
 #endif
 }

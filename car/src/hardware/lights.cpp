@@ -17,7 +17,7 @@ void Lights::setup()
     pinMode(indicatorRight, OUTPUT);
 }
 
-void Lights::update(State& state)
+void Lights::update(State &state)
 {
     // First check if we need to change automatic
     if (state.userSignal && state.userSignal->toggleAutoLights)
@@ -69,10 +69,16 @@ void Lights::update(State& state)
         flashIndicator(indicatorRight);
         state.isHazardsOn = true;
     }
+    else if (!state.userSignal && state.isHazardsOn)
+    {
+        flashIndicator(indicatorLeft);
+        flashIndicator(indicatorRight);
+    }
     else
     {
         state.isHazardsOn = false;
-        if (state.userSignal) {
+        if (state.userSignal)
+        {
             state.indicators = state.userSignal->indicator;
         }
 
@@ -96,13 +102,13 @@ void Lights::update(State& state)
     }
 }
 
-void Lights::lightsOn(State& state)
+void Lights::lightsOn(State &state)
 {
     state.isHeadlightsOn = true;
     digitalWrite(headlights, HIGH);
 }
 
-void Lights::lightsOff(State& state)
+void Lights::lightsOff(State &state)
 {
     state.isHeadlightsOn = false;
     digitalWrite(headlights, LIGHTS_OFF);

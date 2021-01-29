@@ -16,6 +16,12 @@ private:
     LiquidCrystal_I2C lcd;
     unsigned long lastPrint;
 
+    // Flashing
+    bool leftIndicator;
+    bool rightIndicator;
+    unsigned long lastFlash;
+    bool isInFlash;
+
     void printLightInfo(State state);
 };
 
