@@ -21,8 +21,8 @@ void Display::printState(State state)
 
         // Temperature first
         lcd.setCursor(0, 0);
-        if (state.temperature < 10)
-            lcd.print("0");
+        if (state.temperature < 10 && state.temperature >= 0)
+            lcd.print(" ");
         lcd.print(state.temperature, 1);
         lcd.print((char)0xDF);
         lcd.print("C");
@@ -61,8 +61,8 @@ void Display::printState(State state)
 
         // Speed
         lcd.setCursor(3, 1);
-        if (state.speed < 10)
-            lcd.print("0");
+        if (state.speed < 10 && state.speed >= 0)
+            lcd.print(" ");
         lcd.print(state.speed, 1);
 
         lcd.print(" km/hr  ");
