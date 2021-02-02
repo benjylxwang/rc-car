@@ -24,7 +24,7 @@ JoystickAxis turning(TURNING_PIN);
 ToggleButton automaticLights(TOGGLE_AUTO_LIGHTS, INPUT_PULLUP, true);
 ToggleButton manualHeadlights(TOGGLE_HEADLIGHTS, INPUT_PULLUP, true, true);
 ToggleButton hazardLights(TOGGLE_HAZARD_LIGHTS, INPUT_PULLUP, true, true);
-IndicatorControl indicators(INDICATOR_LEFT, INDICATOR_RIGHT, INPUT_PULLUP);
+IndicatorControl indicators(INDICATOR_LEFT, INDICATOR_RIGHT, INPUT_PULLUP, true);
 
 // Other
 ButtonInput beep(BEEP_PIN, INPUT_PULLUP, true);

@@ -98,7 +98,7 @@ void Controller::prepareAck(State& state) {
 
     // Indicators
     i8 = (int8_t *) &data[8];
-    *i8 = state.indicators;
+    *i8 = state.indicators == off ? 0 : state.indicators == left ? -1 : 1;
 
     // Light data
     byte* b = (byte*) &data[9];
