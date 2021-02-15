@@ -97,7 +97,7 @@ The following is a list of all the sensor and state data that will be sent back 
         <tr>
             <td>4</td>
             <td rowspan=1>Turning Angle</td>
-            <td rowspan=1>int16</td>
+            <td rowspan=1>int8</td>
         </tr>
         <tr>
             <td>5</td>
