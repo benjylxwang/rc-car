@@ -1,12 +1,12 @@
-# rc-car
+# drone
 
-An Arduino project for a fully functioning remote control car
+An Arduino project for a fully functioning drone
 
 ## Communication Protocol 
 
-Communication between controller and car is over the nRF24L01 modules. These allow for the sending and receiving of a 32 byte payload.
+Communication between controller and drone is over the nRF24L01 modules. These allow for the sending and receiving of a 32 byte payload.
 
-### Controller to Car
+### Controller to Drone
 The following is a list of all the controls needed and their position in the payload:
 
 <table>
@@ -28,7 +28,7 @@ The following is a list of all the controls needed and their position in the pay
         </tr>
         <tr>
             <td>2</td>
-            <td rowspan=2>Turning (Left/Right)</td>
+            <td rowspan=2>Throttle (Left/Right)</td>
             <td rowspan=2>int16</td>
         </tr>
         <tr>
@@ -36,23 +36,19 @@ The following is a list of all the controls needed and their position in the pay
         </tr>
         <tr>
             <td>4</td>
-            <td>Indicators (Left/Right/Off)</td>
-            <td>int8</td>
+            <td rowspan=2>Throttle (Up/Down)</td>
+            <td rowspan=2>int16</td>
         </tr>
         <tr>
             <td>5</td>
-            <td>Toggle Automatic Headlights</td>
-            <td>bool</td>
         </tr>
         <tr>
             <td>6</td>
-            <td>Toggle Headlights (Only has effect if in manual mode)</td>
-            <td>bool</td>
+            <td rowspan=2>Rotation (Left/Right)</td>
+            <td rowspan=2>int16</td>
         </tr>
         <tr>
             <td>7</td>
-            <td>Toggle Hazard Lights</td>
-            <td>bool</td>
         </tr>
         <tr>
             <td>8</td>
@@ -67,7 +63,7 @@ The following is a list of all the controls needed and their position in the pay
     </tbody>
 </table>
 
-### Car to Controller
+### Drone to Controller
 The following is a list of all the sensor and state data that will be sent back and their position in the payload:
 
 
