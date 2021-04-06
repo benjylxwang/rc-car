@@ -1,6 +1,7 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
+#include <Arduino.h>
 #include "../state.h"
 #include "../../constants.h"
 #include <NRFLite.h>
